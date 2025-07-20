@@ -1,0 +1,61 @@
+<div class="space-y-6">
+  <div class="card bg-gradient-to-br from-zinc-200 to-zinc-300 [[data-theme=dark]_&]:from-zinc-700 [[data-theme=dark]_&]:to-zinc-800 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">Scrape a Website</h2>
+      
+      <form phx-submit="scrape" class="space-y-4">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Website URL</span>
+          </label>
+          <div class="input-group">
+            <input
+              type="url"
+              name="url"
+              placeholder="https://example.com"
+              class="input input-bordered flex-1"
+              required
+            />
+            <button type="submit" class="btn btn-primary">
+              <.icon name="hero-globe-alt" class="w-4 h-4 mr-2" />
+              Scrape
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <%= if @scraped_data != [] do %>
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">Scraped Data</h2>
+        
+        <div class="overflow-x-auto">
+          <table class="table table-zebra">
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= for {key, value} <- @scraped_data do %>
+                <tr>
+                  <td class="font-medium"><%= key %></td>
+                  <td><%= value %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="alert alert-info bg-zinc-100 [[data-theme=dark]_&]:bg-zinc-900 text-zinc-900 [[data-theme=dark]_&]:text-zinc-100 border border-zinc-300 [[data-theme=dark]_&]:border-zinc-600">
+      <.icon name="hero-information-circle" class="w-6 h-6" />
+      <span>Enter a URL above to start scraping website data.</span>
+    </div>
+  <% end %>
+</div>

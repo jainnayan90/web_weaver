@@ -99,4 +99,9 @@
 /* Make LiveView wrapper divs transparent for layout */
 [data-phx-session] { display: contents }
 
+
+
 /* This file is for your main application CSS */
+
+/* Import sidebar styles */
+@import "./sidebar.css";

@@ -1,0 +1,274 @@
+<div class="flex h-screen bg-base-100">
+  <!-- Sidebar -->
+  <aside 
+    id="sidebar" 
+    phx-hook="SidebarToggle"
+    class="w-52 sm:w-52 md:w-56 lg:w-64 xl:w-72 sidebar-gradient border-r border-gray-300 [[data-theme=dark]_&]:border-gray-900 flex flex-col h-screen transition-all duration-300 ease-in-out"
+    data-collapsed="false"
+  >
+    <!-- Sidebar Header -->
+    <div class="flex-shrink-0 p-4 border-b border-gray-300 [[data-theme=dark]_&]:border-gray-800">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3 overflow-hidden">
+          <img src={~p"/images/logo.svg"} width="32" height="32" alt="WebWeaver" class="w-8 h-8 flex-shrink-0" />
+          <div class="sidebar-text transition-all duration-300 ease-in-out">
+            <h2 class="text-lg font-semibold text-gray-800 [[data-theme=dark]_&]:text-white whitespace-nowrap">WebWeaver</h2>
+          </div>
+        </div>
+        <!-- Hamburger Toggle Button -->
+        <button 
+          id="sidebar-toggle-btn"
+          class="btn btn-ghost btn-sm btn-circle hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800 flex-shrink-0 text-gray-800 [[data-theme=dark]_&]:text-white"
+          title="Toggle Sidebar"
+        >
+          <.icon name="hero-bars-3" class="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+    
+    <!-- Sidebar Navigation - Scrollable -->
+    <nav class="flex-1 overflow-y-auto p-4">
+      <ul class="space-y-2">
+        <!-- Main Navigation -->
+        <li>
+          <h3 class="text-xs font-semibold text-gray-500 [[data-theme=dark]_&]:text-gray-400 uppercase tracking-wide mb-2 sidebar-text transition-all duration-300">
+            Main
+          </h3>
+        </li>
+        <li>
+          <a href="/scraper" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800 transition-colors group" title="Web Scraper">
+            <.icon name="hero-globe-alt" class="w-5 h-5 flex-shrink-0" />
+            <span class="sidebar-text transition-all duration-300 whitespace-nowrap overflow-hidden">Web Scraper</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Sidebar Footer -->
+    <div class="flex-shrink-0 border-t border-gray-300 [[data-theme=dark]_&]:border-gray-900">
+      <!-- Theme Toggle Section -->
+      <div class="p-4 border-b border-gray-300 [[data-theme=dark]_&]:border-gray-900">
+        <div class="dropdown dropdown-top w-full">
+          <div tabindex="0" role="button" class="btn btn-ghost w-full justify-start space-x-3 px-3 py-2 h-auto min-h-0 hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800 text-gray-800 [[data-theme=dark]_&]:text-white" title="Theme Settings">
+            <.icon name="hero-sun" class="w-5 h-5 [[data-theme=light]_&]:block hidden flex-shrink-0" />
+            <.icon name="hero-moon" class="w-5 h-5 [[data-theme=dark]_&]:block hidden flex-shrink-0" />
+            <.icon name="hero-computer-desktop" class="w-5 h-5 [[data-theme=light]_&]:hidden [[data-theme=dark]_&]:hidden flex-shrink-0" />
+            <div class="sidebar-text transition-all duration-300 text-left">
+              <span class="text-sm font-medium text-gray-800 [[data-theme=dark]_&]:text-white whitespace-nowrap">Theme</span>
+              <p class="text-xs text-gray-600 [[data-theme=dark]_&]:text-gray-300 whitespace-nowrap">
+                <span class="[[data-theme=light]_&]:inline hidden">Light Mode</span>
+                <span class="[[data-theme=dark]_&]:inline hidden">Dark Mode</span>
+                <span class="[[data-theme=light]_&]:hidden [[data-theme=dark]_&]:hidden">System</span>
+              </p>
+            </div>
+          </div>
+          <ul tabindex="0" class="dropdown-content menu bg-white [[data-theme=dark]_&]:bg-gray-800 rounded-box z-[100] w-52 p-2 shadow-lg border border-gray-300 [[data-theme=dark]_&]:border-gray-500 mb-2">
+            <li>
+              <button
+                phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "light"})}
+                class="flex items-center justify-between text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800"
+              >
+                <span class="flex items-center">
+                  <.icon name="hero-sun" class="w-4 h-4 mr-2" />
+                  Light
+                </span>
+                <.icon name="hero-check" class="w-4 h-4 [[data-theme=light]_&]:block hidden" />
+              </button>
+            </li>
+            <li>
+              <button
+                phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "dark"})}
+                class="flex items-center justify-between text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800"
+              >
+                <span class="flex items-center">
+                  <.icon name="hero-moon" class="w-4 h-4 mr-2" />
+                  Dark
+                </span>
+                <.icon name="hero-check" class="w-4 h-4 [[data-theme=dark]_&]:block hidden" />
+              </button>
+            </li>
+            <li>
+              <button
+                phx-click={JS.dispatch("phx:set-theme", detail: %{theme: "system"})}
+                class="flex items-center justify-between text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800"
+              >
+                <span class="flex items-center">
+                  <.icon name="hero-computer-desktop" class="w-4 h-4 mr-2" />
+                  System
+                </span>
+                <.icon name="hero-check" class="w-4 h-4 [[data-theme=light]_&]:hidden [[data-theme=dark]_&]:hidden" />
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Profile Section -->
+      <div class="p-4">
+        <div class="dropdown dropdown-top w-full">
+          <div tabindex="0" role="button" class="btn btn-ghost w-full justify-start space-x-3 px-3 py-2 h-auto min-h-0 hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800 text-gray-800 [[data-theme=dark]_&]:text-white" title="User Profile">
+            <div class="avatar flex-shrink-0">
+              <div class="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  alt="Profile"
+                  class="rounded-full"
+                />
+              </div>
+            </div>
+            <div class="flex-1 min-w-0 sidebar-text transition-all duration-300 text-left">
+              <p class="text-sm font-medium text-gray-800 [[data-theme=dark]_&]:text-white truncate whitespace-nowrap">
+                Sarah Johnson
+              </p>
+              <p class="text-xs text-gray-600 [[data-theme=dark]_&]:text-gray-300 truncate whitespace-nowrap">
+                sarah.johnson@webweaver.com
+              </p>
+            </div>
+            <.icon name="hero-ellipsis-vertical" class="w-4 h-4 sidebar-text transition-all duration-300 flex-shrink-0" />
+          </div>
+          <div tabindex="0" class="dropdown-content bg-white [[data-theme=dark]_&]:bg-gray-800 rounded-box z-[100] w-64 sm:w-72 shadow-lg border border-gray-300 [[data-theme=dark]_&]:border-gray-500 mb-2 flex flex-col max-h-96">
+            <!-- Fixed Profile Header -->
+            <div class="flex-shrink-0 px-4 py-3 border-b border-gray-300 [[data-theme=dark]_&]:border-gray-500 bg-white [[data-theme=dark]_&]:bg-gray-800 rounded-t-box">
+              <div class="flex items-center space-x-3">
+                <div class="avatar flex-shrink-0">
+                  <div class="w-12 rounded-full">
+                    <img
+                      src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      alt="Profile"
+                    />
+                  </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-semibold text-gray-800 [[data-theme=dark]_&]:text-white break-words">
+                    Sarah Johnson
+                  </p>
+                  <p class="text-xs text-gray-600 [[data-theme=dark]_&]:text-gray-300 break-all">
+                    sarah.johnson@webweaver.com
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Scrollable Menu Items -->
+            <div class="flex-1 overflow-y-auto">
+              <ul class="menu p-2">
+                <!-- Profile Menu Items -->
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-user" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">View Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-cog-6-tooth" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Account Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-bell" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words flex-1">Notifications</span>
+                    <span class="badge badge-primary badge-sm flex-shrink-0">3</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-question-mark-circle" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Help & Support</span>
+                  </a>
+                </li>
+                
+                <div class="divider my-1 border-gray-300 [[data-theme=dark]_&]:border-gray-500"></div>
+                
+                <!-- Workspace Section -->
+                <li class="menu-title">
+                  <span class="break-words text-gray-500 [[data-theme=dark]_&]:text-gray-400">Workspace</span>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-building-office" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Team Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-users" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Invite Members</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="flex items-center text-gray-800 [[data-theme=dark]_&]:text-white hover:bg-gray-100 [[data-theme=dark]_&]:hover:bg-gray-800" href="#">
+                    <.icon name="hero-credit-card" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Billing</span>
+                  </a>
+                </li>
+                
+                <div class="divider my-1 border-gray-300 [[data-theme=dark]_&]:border-gray-600"></div>
+                
+                <!-- Sign Out -->
+                <li>
+                  <a class="flex items-center text-red-400 hover:bg-red-900/20" href="#">
+                    <.icon name="hero-arrow-right-on-rectangle" class="w-4 h-4 flex-shrink-0" />
+                    <span class="break-words">Sign Out</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col h-screen transition-all duration-300 ease-in-out main-content-gradient">
+    <!-- Top Header Bar -->
+    <header class="flex-shrink-0 backdrop-blur-sm px-3 px-4 py-4 relative z-50">
+      <div class="flex items-center justify-end">
+        <div class="flex items-center space-x-2 sm:space-x-4">
+          <!-- Search -->
+          <div class="form-control hidden sm:block">
+            <div class="input-group">
+              <input
+                type="text"
+                placeholder="Search..."
+                class="input input-bordered input-sm w-32 sm:w-48 md:w-64 bg-gray-50 [[data-theme=dark]_&]:bg-gray-700 border-gray-300 [[data-theme=dark]_&]:border-gray-600 text-gray-900 [[data-theme=dark]_&]:text-white placeholder-gray-500 [[data-theme=dark]_&]:placeholder-gray-400"
+              />
+              <button class="btn btn-square btn-sm bg-gray-200 [[data-theme=dark]_&]:bg-gray-600 hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-500 border-gray-300 [[data-theme=dark]_&]:border-gray-600">
+                <.icon name="hero-magnifying-glass" class="w-4 h-4 text-gray-700 [[data-theme=dark]_&]:text-gray-300" />
+              </button>
+            </div>
+          </div>
+          
+          <!-- Mobile Search Button -->
+          <button class="btn btn-ghost btn-circle sm:hidden text-gray-700 [[data-theme=dark]_&]:text-gray-300 hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800">
+            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
+          </button>
+          
+          <!-- Notifications -->
+          <button class="btn btn-ghost btn-circle text-gray-700 [[data-theme=dark]_&]:text-gray-300 hover:bg-gray-300 [[data-theme=dark]_&]:hover:bg-gray-800">
+            <div class="indicator">
+              <.icon name="hero-bell" class="w-5 h-5" />
+              <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Flash Messages -->
+    <div class="flex-shrink-0">
+      <.flash kind={:info} title="Success!" flash={@flash} />
+      <.flash kind={:error} title="Error!" flash={@flash} />
+    </div>
+
+    <!-- Main Content - Scrollable Body -->
+    <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 md:p-6 main-content-gradient">
+      <div class="max-w-full mx-auto">
+        <!-- Page content will be rendered here -->
+        {@inner_content}
+      </div>
+    </div>
+  </main>
+</div>

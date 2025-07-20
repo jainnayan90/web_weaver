@@ -20,6 +20,14 @@ defmodule WebWeaverWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/", WebWeaverWeb do
+    pipe_through :browser
+    live_session :default, on_mount: {WebWeaverWeb.InitAssigns, :default} do
+      live "/scraper", Scraper.Index, :index
+    end
+
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", WebWeaverWeb do
   #   pipe_through :api
